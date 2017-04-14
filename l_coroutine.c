@@ -205,8 +205,13 @@ int main(int argc, char **argv)
 {
     int b = 66;
     int a = 44;
+    task_t *t = NULL;
+
     scheduler_t *s = open_coroutine();     
-    task_t *t =  task_create(s, foo, &a, DEFAULT_STACK_SIZE);
+    t = task_create(s, foo, &a, DEFAULT_STACK_SIZE);
+    if (t == NULL)
+        goto out;
+
     t =  task_create(s, foo, &b, DEFAULT_STACK_SIZE);
     if (t == NULL)
         goto out;
